@@ -2,18 +2,6 @@ import { style } from '@vanilla-extract/css'
 
 import { vars } from '@/styles/theme.css'
 
-export const container = style({
-    backgroundColor: vars.colors.dashboard,
-    padding: '24px',
-})
-
-export const contents = style({
-    marginTop: '24px',
-    padding: '24px',
-    backgroundColor: vars.colors.white,
-    borderRadius: '11px',
-})
-
 export const header = style({
     display: 'flex',
     justifyContent: 'space-between',

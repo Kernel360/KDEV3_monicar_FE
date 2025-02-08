@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react'
 import { UseDataRequest } from '@/constants/api'
 import { httpClient } from '@/lib/apis/client'
 
-export const useData = <T>({ url, params }: UseDataRequest) => {
+export const useData = <T>({ url, params, enabled = true }: UseDataRequest) => {
     const [data, setData] = useState<T>()
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
+        if (!enabled) return
         const getData = async () => {
             try {
                 setIsLoading(true)
@@ -22,7 +23,7 @@ export const useData = <T>({ url, params }: UseDataRequest) => {
             }
         }
         getData()
-    }, [url, params])
+    }, [url, params, enabled])
 
     return { data, isLoading, error }
 }

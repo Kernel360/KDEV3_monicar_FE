@@ -29,7 +29,7 @@ const SignInPage = () => {
     // const [isLoading, setIsLoading] = useState(false)
 
     const { login } = useAuth()
-    const { isOpen, modalMessage, closeModal, showMessage } = useModal()
+    const { isModalOpen, message, closeModal, openModalWithMessage } = useModal()
     const { isAuthLoading, authError } = useAuthStore()
 
     const router = useRouter()
@@ -39,12 +39,12 @@ const SignInPage = () => {
         const passwordValidation = validatePassword(formData.password)
 
         if (!emailValidation.isValid) {
-            showMessage(emailValidation.message!)
+            openModalWithMessage(emailValidation.message!)
             return { isValid: false }
         }
 
         if (!passwordValidation.isValid) {
-            showMessage(passwordValidation.message!)
+            openModalWithMessage(passwordValidation.message!)
             return { isValid: false }
         }
 
@@ -60,13 +60,13 @@ const SignInPage = () => {
         if (authError) {
             switch (authError) {
                 case 'INVALID_CREDENTIALS':
-                    showMessage('아이디 또는 비밀번호가 일치하지 않습니다')
+                    openModalWithMessage('아이디 또는 비밀번호가 일치하지 않습니다')
                     break
                 case 'SERVICE_ERROR':
-                    showMessage('일시적인 오류가 발생했습니다\n잠시 후에 다시 시도해주세요')
+                    openModalWithMessage('일시적인 오류가 발생했습니다\n잠시 후에 다시 시도해주세요')
                     break
                 default:
-                    showMessage('서비스 이용에 불편을 드려 죄송합니다\n잠시 후에 다시 시도해주세요')
+                    openModalWithMessage('서비스 이용에 불편을 드려 죄송합니다\n잠시 후에 다시 시도해주세요')
                     break
             }
             return
@@ -140,8 +140,8 @@ const SignInPage = () => {
             </section>
 
             <Modal
-                isOpen={isOpen}
-                message={modalMessage as ModalMessageType}
+                isOpen={isModalOpen}
+                message={message as ModalMessageType}
                 variant={{ variant: 'alert', confirmButton: '확인' }}
                 onClose={closeModal}
             />

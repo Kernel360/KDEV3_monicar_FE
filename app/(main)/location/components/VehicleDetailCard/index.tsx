@@ -6,18 +6,19 @@ import Badge from '@/components/common/Badge'
 import SquareButton from '@/components/common/Button/SquareButton'
 import { useCoordToAddress } from '@/hooks/useCoordToAddress'
 import { formatISODateToDot } from '@/lib/utils/date'
+import { formatMinuteToHour, formatWithCommas } from '@/lib/utils/format'
 import { normalizeCoordinate } from '@/lib/utils/normalize'
 import { addSpaceVehicleNumber } from '@/lib/utils/string'
-import { VehicleDetailsModel } from '@/types/vehicle'
+import { VehicleDetailModel } from '@/types/vehicle'
 
 import * as styles from './styles.css'
 
-interface VehicleDetailsCardProps {
-    vehicleDetails: VehicleDetailsModel
+interface VehicleDetailCardProps {
+    vehicleDetails: VehicleDetailModel
     onCloseButtonClick: (showDetailsCard: boolean) => void
 }
 
-const VehicleDetailsCard = ({ vehicleDetails, onCloseButtonClick }: VehicleDetailsCardProps) => {
+const VehicleDetailCard = ({ vehicleDetails, onCloseButtonClick }: VehicleDetailCardProps) => {
     const {
         recentVehicleInfo: { vehicleNumber, status, lastEngineOn, lastEngineOff },
         recentCycleInfo: { speed, lat, lng, lastUpdated },
@@ -29,13 +30,16 @@ const VehicleDetailsCard = ({ vehicleDetails, onCloseButtonClick }: VehicleDetai
         lng: normalizeCoordinate(lng),
     }
 
-    // TODO: 다른 데이터 오류 가능성 체크
     const isDriving = status === 'ON'
+
+    const formattedSpeed = formatWithCommas(speed)
     const formattedVehicleNumber = addSpaceVehicleNumber(vehicleNumber)
-    const formattedLastEngineOn = formatISODateToDot(lastEngineOn)
-    const formattedLastEngineOff = formatISODateToDot(lastEngineOff)
-    const todayDrivingTime = todayDrivingHistory ? todayDrivingHistory.drivingTime : 0
-    const todayDrivingDistance = todayDrivingHistory ? todayDrivingHistory.distance : 0
+    const formattedLastEngineOn = lastEngineOn ? formatISODateToDot(lastEngineOn) : '-'
+    const formattedLastEngineOff = lastEngineOff ? formatISODateToDot(lastEngineOff) : '-'
+    const formattedLastUpdated = lastUpdated ? formatISODateToDot(lastUpdated) : '-'
+
+    const todayDrivingTime = todayDrivingHistory ? formatMinuteToHour(todayDrivingHistory.drivingTime) : 0
+    const todayDrivingDistance = todayDrivingHistory ? formatWithCommas(todayDrivingHistory.distance) : 0
 
     const address = useCoordToAddress(normalizedCoordinate.lat, normalizedCoordinate.lng)
 
@@ -62,7 +66,7 @@ const VehicleDetailsCard = ({ vehicleDetails, onCloseButtonClick }: VehicleDetai
                             <th scope='row' className={styles.tableHeader}>
                                 속도
                             </th>
-                            <td className={styles.tableCell}>{speed} km/h</td>
+                            <td className={styles.tableCell}>{formattedSpeed} km/h</td>
                         </tr>
                         <tr>
                             <th scope='row' className={styles.tableHeader}>
@@ -78,7 +82,7 @@ const VehicleDetailsCard = ({ vehicleDetails, onCloseButtonClick }: VehicleDetai
                             <th scope='row' className={styles.tableHeader}>
                                 당일주행시간
                             </th>
-                            <td className={styles.tableCell}>{todayDrivingTime} 분</td>
+                            <td className={styles.tableCell}>{todayDrivingTime}</td>
                             <th scope='row' className={styles.tableHeader}>
                                 당일주행거리
                             </th>
@@ -89,7 +93,7 @@ const VehicleDetailsCard = ({ vehicleDetails, onCloseButtonClick }: VehicleDetai
                                 최종수신
                             </th>
                             <td colSpan={3} className={styles.tableCell}>
-                                {formatISODateToDot(lastUpdated)}
+                                {formattedLastUpdated}
                             </td>
                         </tr>
                         <tr>
@@ -109,4 +113,4 @@ const VehicleDetailsCard = ({ vehicleDetails, onCloseButtonClick }: VehicleDetai
     )
 }
 
-export default VehicleDetailsCard
+export default VehicleDetailCard

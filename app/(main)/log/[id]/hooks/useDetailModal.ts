@@ -2,16 +2,16 @@ import { useModal } from '@/hooks/useModal'
 
 export const useDetailModal = () => {
     const {
-        isOpen: isConfirmModalOpen,
-        modalMessage: confirmModalMessage,
+        isModalOpen: isConfirmModalOpen,
+        message: confirmModalMessage,
         closeModal: closeConfirmModal,
-        showMessage: showConfirmMessage,
+        openModalWithMessage: showConfirmMessage,
     } = useModal()
     const {
-        isOpen: isAlertModalOpen,
-        modalMessage: alertModalMessage,
+        isModalOpen: isAlertModalOpen,
+        message: alertModalMessage,
         closeModal: closeAlertModal,
-        showMessage: showAlertMessage,
+        openModalWithMessage: showAlertMessage,
     } = useModal()
 
     return {

@@ -1,27 +1,43 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
 // import { CustomOverlayMap } from 'react-kakao-maps-sdk'
 
 // import CustomMarker from '@/app/(main)/location/components/CustomMarker'
+import { useEffect, useRef, useState } from 'react'
+import { CustomOverlayMap } from 'react-kakao-maps-sdk'
+
+import CustomMarker from '@/app/(main)/location/components/CustomMarker'
+import VehicleDetailsCard from '@/app/(main)/location/components/VehicleDetailCard'
 import VehicleMarker from '@/app/(main)/location/components/VehicleMarker'
 import Map from '@/components/domain/map/Map'
 import { useMapStatus } from '@/hooks/useCurrentMapStatus'
 // import { clusterService } from '@/lib/apis/cluster'
+import { clusterService } from '@/lib/apis/cluster'
 import { LatLng } from '@/types/location'
-import { MapState } from '@/types/map'
-import { VehicleInfoModel } from '@/types/vehicle'
+import { ClusterInfoModel, MapState } from '@/types/map'
+import { VehicleDetailModel, VehicleInfoModel } from '@/types/vehicle'
 
 interface MapSectionProps {
-    mapState: MapState
+    mapState?: MapState
     vehicleInfo: VehicleInfoModel
-    isVehicleMarkerVisible: boolean
-    onVehicleClick: () => void
-    onClick: (location: LatLng, level: number) => void
+    vehicleDetail: VehicleDetailModel
+    isVehicleVisible: boolean
+    isDetailCardVisible: boolean
+    onClick?: (location: LatLng, level: number) => void
+    onVehicleClose: () => void
+    onDetailCardClose: () => void
 }
 
-const MapSection = ({ mapState, vehicleInfo, isVehicleMarkerVisible, onVehicleClick }: MapSectionProps) => {
-    // const [clusterInfo, setClusterInfo] = useState<ClusterPoint[]>([])
+const MapSection = ({
+    mapState,
+    vehicleInfo,
+    vehicleDetail,
+    isVehicleVisible,
+    isDetailCardVisible,
+    // onVehicleClose,
+    onDetailCardClose,
+}: MapSectionProps) => {
+    const [clusterInfo, setClusterInfo] = useState<ClusterInfoModel[]>([])
     // const [clusterDetailInfo, setClusterDetailInfo] = useState<VehicleInfoModel | null>(null)
     const [isMapLoaded, setIsMapLoaded] = useState(false)
     const mapRef = useRef<kakao.maps.Map>(null)
@@ -37,22 +53,29 @@ const MapSection = ({ mapState, vehicleInfo, isVehicleMarkerVisible, onVehicleCl
     useEffect(() => {
         if (!isMapLoaded || !currentMapState) return
         const getClusterInfo = async () => {
-            // const clusterInfo: ClusterPoint[] = await clusterService.getClusterInfo(currentMapState)
+            // await clusterService.getClusterInfo(currentMapState)
+            const clusterInfo: ClusterInfoModel[] = await clusterService.getClusterInfo(currentMapState)
             // const clusterDetailInfo = await clusterService.getClusterDetailInfo(currentMapState)
-            // setClusterInfo(clusterInfo)
+            setClusterInfo(clusterInfo)
             // setClusterDetailInfo(clusterDetailInfo)
-            // console.log(clusterInfo)
             // console.log(clusterDetailInfo)
         }
 
         getClusterInfo()
     }, [isMapLoaded, currentMapState])
 
+    console.log(clusterInfo)
+    // const handleVehicleDetailCardClose = () => {
+    //     setIsVehicleDetailsVisible(false)
+    // }
+
+    // console.log(isVehicleVisible, shouldShowVehicleDetailCard)
+
     return (
         <Map
             ref={mapRef}
-            center={mapState.center}
-            zoom={mapState.level}
+            center={mapState?.center}
+            zoom={mapState?.level}
             onLoad={() => setIsMapLoaded(true)}
             onMapStatusChanged={updateMapStatus}
         >
@@ -63,21 +86,21 @@ const MapSection = ({ mapState, vehicleInfo, isVehicleMarkerVisible, onVehicleCl
                     </CustomOverlayMap>
                 )
             })} */}
-            {/* {clusterInfo.map((point) => {
+            {clusterInfo.map((point, index) => {
                 return (
-                    <CustomOverlayMap
-                        key={`${point.coordinate.lat}-${point.coordinate.lat}`}
-                        position={point.coordinate}
-                    >
+                    <CustomOverlayMap key={index} position={point}>
                         <CustomMarker
                             count={point.count}
-                            onClick={() => onClick(point.coordinate, mapState.level - 1)}
+                            // onClick={() => onClick(point. mapState.level - 1)}
                         />
                     </CustomOverlayMap>
                 )
             })}
-            {clusterDetailInfo && <VehicleMarker vehicleInfo={clusterDetailInfo} />} */}
-            {isVehicleMarkerVisible && <VehicleMarker vehicleInfo={vehicleInfo} onVehicleClick={onVehicleClick} />}
+            {/* {clusterDetailInfo && <VehicleMarker vehicleInfo={clusterDetailInfo} />} */}
+            {isVehicleVisible && <VehicleMarker vehicleInfo={vehicleInfo} />}
+            {isDetailCardVisible && (
+                <VehicleDetailsCard vehicleDetails={vehicleDetail} onCloseButtonClick={onDetailCardClose} />
+            )}
         </Map>
     )
 }

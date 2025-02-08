@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-import { vars } from '@/styles/theme.css'
+import { breakPoints, vars } from '@/styles/theme.css'
 
 export const container = style({
     display: 'flex',
@@ -13,6 +13,12 @@ export const container = style({
 
 export const headerTitle = style({
     flex: 1,
+
+    '@media': {
+        [`screen and (max-width: ${breakPoints.mobile}px)`]: {
+            fontSize: vars.fontSizes.small,
+        },
+    },
 })
 
 export const headerIcon = style({

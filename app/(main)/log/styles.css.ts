@@ -1,21 +1,39 @@
 import { style } from '@vanilla-extract/css'
 
-import { vars } from '@/styles/theme.css'
+import { breakPoints, vars } from '@/styles/theme.css'
 
 export const container = style({
     height: '100vh',
     padding: '40px 44px',
     overflowY: 'auto',
+
+    '@media': {
+        [`screen and (max-width: ${breakPoints.mobile}px)`]: {
+            padding: '20px',
+        },
+    },
 })
 
-export const contents = style({
+export const breadcrumbWrapper = style({
+    '@media': {
+        [`screen and (max-width: ${breakPoints.mobile}px)`]: {
+            display: 'none',
+        },
+    },
+})
+
+export const header = style({
     display: 'flex',
-    flexDirection: 'column',
-    marginTop: '20px',
+    justifyContent: 'space-between',
+    alignItems: 'center',
 })
 
 export const searchInputWrapper = style({
     width: '300px',
+})
+
+export const excelButtonWrapper = style({
+    width: '90px',
 })
 
 export const linkButton = style({
@@ -35,6 +53,19 @@ export const linkButton = style({
     ':hover': {
         opacity: vars.opacity[80],
     },
+
+    '@media': {
+        [`screen and (max-width: ${breakPoints.mobile}px)`]: {
+            display: 'none',
+        },
+    },
+})
+
+export const contents = style({
+    display: 'flex',
+    width: '100%',
+    flexDirection: 'column',
+    marginTop: '20px',
 })
 
 export const pagination = style({

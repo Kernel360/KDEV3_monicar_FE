@@ -20,4 +20,14 @@ export const routeService = {
 
         return response.data.result
     },
+    getVehicleLiveRoutesData: async (vehicleId: string) => {
+        const response = await httpClient.get(`api/v1/vehicle/${vehicleId}/recent/routes`, {
+            params: {
+                currentTime: '2025-01-27T21:23:00',
+            },
+        })
+        console.log(response.data.result.routes)
+
+        // return response.data.result
+    },
 }

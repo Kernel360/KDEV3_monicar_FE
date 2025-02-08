@@ -14,6 +14,7 @@ export const useMapStatus = (map: kakao.maps.Map | null) => {
 
     const updateMapStatus = () => {
         if (!map) return
+
         setCurrentMapState(getBoundedMapStatus(map))
     }
 

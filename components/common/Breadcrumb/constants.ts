@@ -1,7 +1,7 @@
 export const logPath = [
     { label: '운행기록', path: '/log' },
-    { label: '운행일지', path: '/log' },
-    { label: '일별 및 시간별 운행기록', path: '/log' },
+    { label: '운행일지', path: '/log/:id' },
+    { label: '일별 및 시간별 운행기록', path: '/log/:id/daily' },
 ] as const
 
 export const noticePath = [

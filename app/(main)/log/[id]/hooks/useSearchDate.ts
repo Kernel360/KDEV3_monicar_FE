@@ -1,7 +1,12 @@
 import { useState } from 'react'
 
+import { formatToKSTDate } from '@/lib/utils/date'
+
 export const useSearchDate = () => {
-    const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null])
+    const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
+        new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
+        new Date(),
+    ])
 
     const handleDateRangeChange = (value: [Date | null, Date | null]) => {
         setDateRange(value)
@@ -13,10 +18,17 @@ export const useSearchDate = () => {
         }
 
         return {
-            startDate: dateRange[0].toISOString().split('T')[0],
-            endDate: dateRange[1].toISOString().split('T')[0],
+            startDate: formatToKSTDate(dateRange[0]),
+            endDate: formatToKSTDate(dateRange[1]),
         }
     }
 
-    return { dateRange, handleDateRangeChange, getFormattedDates }
+    const isDateRangeValid = Boolean(dateRange[0] && dateRange[1])
+
+    return {
+        dateRange,
+        handleDateRangeChange,
+        getFormattedDates,
+        isDateRangeValid,
+    }
 }

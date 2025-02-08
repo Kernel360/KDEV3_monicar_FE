@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-import { vars } from '@/styles/theme.css'
+import { breakPoints, vars } from '@/styles/theme.css'
 
 export const container = style({
     width: '80%',
@@ -14,11 +14,12 @@ export const container = style({
     borderRadius: '30px 30px 0 0',
 })
 
-export const button = style({
-    display: 'flex',
-    width: '200px',
-    justifyContent: 'center',
-    gap: '6px',
+export const breadcrumbWrapper = style({
+    '@media': {
+        [`screen and (max-width: ${breakPoints.mobile}px)`]: {
+            display: 'none',
+        },
+    },
 })
 
 export const tableWrapper = style({
@@ -47,9 +48,20 @@ export const tableCell = style({
     color: vars.colors.black,
 })
 
+export const excelButtonWrapper = style({
+    display: 'flex',
+    width: '90px',
+    justifyContent: 'center',
+    gap: '6px',
+})
+
+export const deleteButtonWrapper = style({
+    width: '110px',
+})
+
 export const deleteButton = style({
-    backgroundColor: vars.colors.primary,
-    color: vars.colors.white,
+    display: 'flex',
+    gap: '6px',
 })
 
 export const linkButton = style({

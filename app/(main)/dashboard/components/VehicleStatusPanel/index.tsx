@@ -35,6 +35,7 @@ const VehicleStatusPanel = () => {
 
     return (
         <div className={styles.container}>
+            <div className={styles.titleWrapper}>차량현황</div>
             <VehicleStatusItem total={allVehicles} current={allVehicles} color={vars.colors.primary}>
                 전체 차량
             </VehicleStatusItem>

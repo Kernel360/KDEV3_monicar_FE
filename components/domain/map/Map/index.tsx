@@ -5,7 +5,6 @@ import { Map as KakaoMap, ZoomControl } from 'react-kakao-maps-sdk'
 
 import ErrorMessage from '@/components/common/ErrorMessage'
 import PageLoader from '@/components/common/PageLoader'
-import { ZOOM_LEVEL } from '@/constants/map'
 import { useKakaoLoader } from '@/hooks/useKakaoLoader'
 import { LatLng } from '@/types/location'
 
@@ -30,6 +29,16 @@ const Map = memo(
             onMapStatusChanged?.()
         }
 
+        // useImperativeHandle(ref, {
+        //     f1: () => {
+        //         alert('1')
+        //     }
+        // });
+
+        // const handleasdf = () => {
+        //     ref?.current.updateMapLocation()
+        // }
+
         if (loading) return <PageLoader />
         if (error) return <ErrorMessage />
 
@@ -38,15 +47,15 @@ const Map = memo(
                 ref={ref}
                 center={center}
                 level={zoom}
-                maxLevel={ZOOM_LEVEL.MAX}
-                minLevel={ZOOM_LEVEL.MIN}
+                maxLevel={1}
+                minLevel={13}
                 style={{ width: '100%', height: '100%' }}
                 onCreate={handleCreate}
                 onZoomChanged={handleMapStatusChange}
                 onDragEnd={handleMapStatusChange}
             >
                 {children}
-                <ZoomControl />
+                <ZoomControl position={'BOTTOMRIGHT'} />
             </KakaoMap>
         )
     },

@@ -20,14 +20,16 @@ const InspectionStatus = ({ inspectionStatusData }: InspectionStatusProps) => {
             {inspectionStatusData.map((data) => (
                 <div
                     key={data.status}
-                    className={styles.statusCard({
+                    className={`${styles.statusCard({
                         status: data.status,
-                    })}
+                    })} ${styles.mobileStatusCard}`}
                 >
-                    <div className={styles.iconWrappers[data.iconType]}>
-                        <div className={styles.icon}>{data.icon}</div>
+                    <div className={styles.mobileStatusWrapper}>
+                        <div className={styles.iconWrapper[data.iconType]}>
+                            <div className={styles.icon}>{data.icon}</div>
+                        </div>
+                        <div className={styles.statusText}>{data.text}</div>
                     </div>
-                    <div className={styles.statusText}>{data.text}</div>
                 </div>
             ))}
         </div>

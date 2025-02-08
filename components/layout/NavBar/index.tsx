@@ -7,17 +7,14 @@ import Switch from '@/components/common/Switch'
 import NavItem from '@/components/layout/NavBar/NavItem'
 import { navigationItems } from '@/constants/navigation'
 import { useAuth } from '@/hooks/useAuth'
-// import { useAuthStore } from '@/stores/useAuthStore'
 
 import * as styles from './styles.css'
 
 const NavBar = () => {
     const { logout } = useAuth()
-    // const user = useAuthStore((state) => state.user)
 
     const [useEmail, setUserEmail] = useState<string>('')
 
-    // const user = useAuthStore((state) => state.user)
     useEffect(() => {
         const useEmail = localStorage.getItem('email') || 'b6f2@monicar.com'
 

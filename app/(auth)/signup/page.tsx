@@ -28,7 +28,7 @@ const SignUpPage = () => {
         password: '',
     })
 
-    const { isOpen, modalMessage, closeModal, showMessage } = useModal()
+    const { isModalOpen, message, closeModal, openModalWithMessage } = useModal()
 
     const router = useRouter()
 
@@ -37,12 +37,12 @@ const SignUpPage = () => {
         const passwordValidation = validatePassword(formData.password)
 
         if (!emailValidation.isValid) {
-            showMessage(emailValidation.message!)
+            openModalWithMessage(emailValidation.message!)
             return { isValid: false }
         }
 
         if (!passwordValidation.isValid) {
-            showMessage(passwordValidation.message!)
+            openModalWithMessage(passwordValidation.message!)
             return { isValid: false }
         }
 
@@ -61,7 +61,7 @@ const SignUpPage = () => {
         )
 
         if (!isSignUp.isSuccess) {
-            showMessage(isSignUp.message)
+            openModalWithMessage(isSignUp.message)
             return
         }
 
@@ -109,8 +109,8 @@ const SignUpPage = () => {
             </div>
 
             <Modal
-                isOpen={isOpen}
-                message={modalMessage as ModalMessageType}
+                isOpen={isModalOpen}
+                message={message as ModalMessageType}
                 variant={{ variant: 'alert', confirmButton: '확인' }}
                 onClose={closeModal}
             />

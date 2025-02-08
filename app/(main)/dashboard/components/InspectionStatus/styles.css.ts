@@ -1,7 +1,7 @@
 import { style, styleVariants } from '@vanilla-extract/css'
 import { recipe } from '@vanilla-extract/recipes'
 
-import { vars } from '@/styles/theme.css'
+import { breakPoints, vars } from '@/styles/theme.css'
 
 export const container = style({
     width: '100%',
@@ -12,6 +12,17 @@ export const container = style({
     backgroundColor: vars.colors.white,
     borderRadius: '12px',
     fontWeight: vars.fontWeights.bold,
+
+    '@media': {
+        [`screen and (max-width: ${breakPoints.mobile}px)`]: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '0px',
+            fontSize: vars.fontSizes.small,
+            backgroundColor: 'transparent',
+        },
+    },
 })
 
 const iconWrapperBase = style({
@@ -23,7 +34,7 @@ const iconWrapperBase = style({
     alignItems: 'center',
 })
 
-export const iconWrappers = styleVariants({
+export const iconWrapper = styleVariants({
     bell: [iconWrapperBase, { backgroundColor: vars.colors.pink[700] }],
     alert: [iconWrapperBase, { backgroundColor: vars.colors.yellow[200] }],
     button: [iconWrapperBase, { backgroundColor: vars.colors.green[300] }],
@@ -53,6 +64,35 @@ export const statusCard = recipe({
     },
 })
 
+export const mobileStatusCard = style({
+    transition: 'transform 0.3s ease',
+    ':hover': {
+        transform: 'scale(1.05)',
+    },
+    '@media': {
+        [`screen and (max-width: ${breakPoints.mobile}px)`]: {
+            padding: '8px',
+        },
+    },
+})
+
 export const statusText = style({
     marginTop: '54px',
+    '@media': {
+        [`screen and (max-width: ${breakPoints.mobile}px)`]: {
+            marginTop: '10px',
+            textAlign: 'center',
+        },
+    },
+})
+
+export const mobileStatusWrapper = style({
+    '@media': {
+        [`screen and (max-width: ${breakPoints.mobile}px)`]: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+    },
 })

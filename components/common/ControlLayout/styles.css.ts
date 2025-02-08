@@ -3,7 +3,6 @@ import { style } from '@vanilla-extract/css'
 import { vars } from '@/styles/theme.css'
 
 export const container = style({
-    position: 'absolute',
     top: '2rem',
     right: '2rem',
     display: 'flex',
@@ -16,7 +15,6 @@ export const container = style({
 
 export const buttonGroup = style({
     display: 'flex',
-    width: '200px',
     justifyContent: 'center',
     gap: '12px',
 })

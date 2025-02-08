@@ -9,13 +9,13 @@ export const useSearchVehicle = (vehicleNumber: string = '') => {
     const [searchedVehicle, setSearchedVehicle] = useState<VehicleOperationPeriodModel | null>()
     const [searchableDates, setSearchableDates] = useState({ firstDateAt: '', lastDateAt: '' })
 
-    const { isOpen, modalMessage, closeModal, showMessage } = useModal()
+    const { isModalOpen, message, closeModal, openModalWithMessage } = useModal()
 
     const searchVehicle = async () => {
         const validation = validateVehicleNumber(vehicleNumber)
 
         if (!validation.isValid) {
-            showMessage(validation.message!)
+            openModalWithMessage(validation.message!)
             return
         }
 
@@ -23,7 +23,7 @@ export const useSearchVehicle = (vehicleNumber: string = '') => {
             const response = await vehicleService.getVehicleOperationPeriod(vehicleNumber)
 
             if (!response.isValid) {
-                showMessage('등록되지 않은 차량번호입니다.')
+                openModalWithMessage('등록되지 않은 차량번호입니다.')
                 setSearchedVehicle(null)
                 return
             }
@@ -41,15 +41,15 @@ export const useSearchVehicle = (vehicleNumber: string = '') => {
             setSearchableDates(vehicleOperationPeriodInfo.searchableDates)
         } catch (error) {
             console.error(error)
-            showMessage('차량 정보를 불러오는데 실패했습니다')
+            openModalWithMessage('차량 정보를 불러오는데 실패했습니다')
         }
     }
 
     return {
         searchedVehicle,
         searchableDates,
-        isOpen,
-        modalMessage,
+        isModalOpen,
+        message,
         searchVehicle,
         setSearchableDates,
         closeModal,

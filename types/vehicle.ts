@@ -30,7 +30,7 @@ export interface VehicleOperationPeriodModel {
     }
 }
 
-export interface VehicleDetailsModel {
+export interface VehicleDetailModel {
     recentVehicleInfo: {
         vehicleId: number
         vehicleNumber: string

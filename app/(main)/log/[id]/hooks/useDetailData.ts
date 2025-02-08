@@ -8,19 +8,23 @@ interface RequestData {
     url: string
     startDate?: string
     endDate?: string
+    enabled: boolean
 }
 
-export const useDetailData = ({ url, startDate, endDate }: RequestData) => {
+export const useDetailData = ({ url, startDate, endDate, enabled = true }: RequestData) => {
     const params = useMemo(
         () => ({
-            start: startDate || '2024-11-01',
-            end: endDate || '2025-11-01',
+            start: startDate,
+            end: endDate,
         }),
         [startDate, endDate],
     )
+
     const { data, isLoading, error } = useData<DetailResponse>({
         url,
         params,
+        enabled,
     })
+
     return { detailData: data, isLoading, error }
 }

@@ -28,15 +28,15 @@ const LogPage = () => {
     const [activePage, setActivePage] = useState(1)
     const [searchVehicleNumber, setSearchVehicleNumber] = useState<string>()
     const [searchTerm, setSearchTerm] = useState('')
-    const { isOpen, modalMessage, closeModal, showMessage } = useModal()
+    const { isModalOpen, message, closeModal, openModalWithMessage } = useModal()
     const { logData, isLoading, error } = useLogData(activePage, searchVehicleNumber)
 
     const handleExcelButtonClick = async () => {
         try {
-            await downloadExcel()
+            await downloadExcel(searchTerm)
         } catch (error) {
             console.error('엑셀 다운로드 에러', error)
-            showMessage('엑셀 다운로드에 실패했습니다')
+            openModalWithMessage('엑셀 다운로드에 실패했습니다')
         }
     }
 
@@ -57,7 +57,7 @@ const LogPage = () => {
         const validation = validateSearchTerm(searchTerm)
 
         if (!validation.isValid) {
-            showMessage(validation.message!)
+            openModalWithMessage(validation.message!)
             return
         }
 
@@ -74,8 +74,11 @@ const LogPage = () => {
 
     return (
         <div className={styles.container}>
-            <Breadcrumb type={'운행기록'} />
-            <div className={styles.contents}>
+            <div className={styles.header}>
+                <div className={styles.breadcrumbWrapper}>
+                    <Breadcrumb type={'운행기록'} />
+                </div>
+
                 <ControlLayout
                     control={
                         <div className={styles.searchInputWrapper}>
@@ -87,7 +90,11 @@ const LogPage = () => {
                             />
                         </div>
                     }
-                    primaryButton={<ExcelButton onClick={handleExcelButtonClick} />}
+                    primaryButton={
+                        <div className={styles.excelButtonWrapper}>
+                            <ExcelButton onClick={handleExcelButtonClick} />
+                        </div>
+                    }
                     secondaryButton={
                         <LinkButton href={'/log/register'}>
                             <div className={styles.linkButton}>
@@ -98,12 +105,14 @@ const LogPage = () => {
                     }
                 />
                 <Modal
-                    isOpen={isOpen}
-                    message={modalMessage as ModalMessageType}
+                    isOpen={isModalOpen}
+                    message={message as ModalMessageType}
                     variant={{ variant: 'alert', confirmButton: '확인' }}
                     onClose={closeModal}
                 />
+            </div>
 
+            <div className={styles.contents}>
                 <ListHeader headerTitles={LOG_TITLES} />
                 {logData?.content.map((log) => (
                     <ListItem key={log.id} data={log} onClick={() => handleItemClick(log.id)} />

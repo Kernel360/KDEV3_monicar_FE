@@ -5,6 +5,4 @@ export const addSpaceVehicleNumber = (vehicleNumber: string) => vehicleNumber.re
 export const removeSpaces = (value: string) => value.trim().replace(/\s/g, '')
 
 // 입력값의 양쪽 여백 제거
-export const trimValue = (value: string) => {
-    return value?.trim() ?? ''
-}
+export const trimValue = (value: string) => value?.trim() ?? ''

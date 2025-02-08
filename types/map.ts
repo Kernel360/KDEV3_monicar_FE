@@ -13,13 +13,8 @@ export type ZoomLevelValueType = (typeof ZOOM_LEVEL)[keyof typeof ZOOM_LEVEL]
 
 // 서버 응답 클러스터링 데이터
 export interface ClusterInfoModel {
-    coordinate: LatLng | null
-    count: number
-}
-
-// 필터링된 클러스터링 데이터 (coordinate: null 제외)
-export interface ClusterPoint {
-    coordinate: LatLng
+    lat: number
+    lng: number
     count: number
 }
 

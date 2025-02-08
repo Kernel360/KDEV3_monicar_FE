@@ -20,8 +20,9 @@ const ListItem = ({ data, onClick }: ListItemProps) => {
                 <li className={styles.itemWrapper}>{formattedVehicleNumber}</li>
                 <li className={styles.itemWrapper}>{vehicleModel}</li>
                 <li className={styles.itemWrapper}>{drivingDays.toLocaleString('ko-KR')}일</li>
+
                 <li className={styles.itemWrapper}>{totalDistance.toLocaleString('ko-KR')}km</li>
-                <li className={styles.itemWrapper}>
+                <li className={styles.badge}>
                     <Badge shape={'rectangle'} variant={status} />
                 </li>
             </ul>

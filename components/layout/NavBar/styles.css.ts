@@ -17,11 +17,9 @@ export const navbar = style({
         [mediaQuery.mobile]: {
             position: 'fixed',
             bottom: 0,
-            left: 0,
-            right: 0,
             height: 'auto',
             width: '100%',
-            zIndex: 50,
+            zIndex: vars.zIndex.default,
             padding: '12px 12px',
             alignItems: 'center',
         },
@@ -63,6 +61,8 @@ export const navList = style({
     '@media': {
         [mediaQuery.mobile]: {
             flexDirection: 'row',
+            width: '100%',
+            gap: '50px',
         },
     },
 })

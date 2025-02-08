@@ -29,13 +29,14 @@ const saveExcel = (excelData: ExcelData[]) => {
     XLSX.writeFile(wb, EXCEL_FILE_NAME)
 }
 
-export const downloadExcel = async () => {
+export const downloadExcel = async (keyword: string) => {
     try {
         const response = await httpClient.get(API_ENDPOINTS.LOG, {
             params: {
                 page: 0,
-                size: 100,
+                size: 1000,
                 sort: 'CREATED_AT_DESC',
+                keyword,
             },
         })
         const allData = response.data.result.content

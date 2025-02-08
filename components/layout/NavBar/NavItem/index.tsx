@@ -14,7 +14,7 @@ interface NavItemProps {
 
 const NavItem = ({ label, path, iconSrc }: NavItemProps) => {
     const pathname = usePathname()
-    const isCurrentPage = pathname === path
+    const isCurrentPage = pathname.startsWith(path)
 
     return (
         <li>

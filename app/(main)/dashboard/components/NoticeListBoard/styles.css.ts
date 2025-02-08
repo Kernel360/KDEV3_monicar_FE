@@ -1,9 +1,9 @@
 import { style } from '@vanilla-extract/css'
 
-import { vars } from '@/styles/theme.css'
+import { breakPoints, vars } from '@/styles/theme.css'
 
 export const container = style({
-    height: 0,
+    // height: 0,
     flex: 1,
     backgroundColor: vars.colors.white,
     padding: '24px',
@@ -11,12 +11,27 @@ export const container = style({
     display: 'flex',
     gap: '24px',
     flexDirection: 'column',
+
+    '@media': {
+        [`screen and (max-width: ${breakPoints.mobile}px)`]: {
+            padding: '0px',
+            marginTop: '40px',
+            gap: '16px',
+        },
+    },
 })
 
 export const heading = style({
     color: vars.colors.black,
     fontSize: vars.fontSizes.large,
     fontWeight: vars.fontWeights.extraBold,
+
+    '@media': {
+        [`screen and (max-width: ${breakPoints.mobile}px)`]: {
+            fontSize: vars.fontSizes.mediumPlus,
+            fontWeight: vars.fontWeights.bold,
+        },
+    },
 })
 
 export const noticeList = style({
@@ -33,6 +48,10 @@ export const noticeItem = style({
     display: 'flex',
     gap: '20px',
     marginBottom: '20px',
+    transition: 'transform 0.3s ease',
+    ':hover': {
+        transform: 'scale(1.05)',
+    },
 })
 
 export const imageWrapper = style({

@@ -6,6 +6,7 @@ import { useParams, useRouter } from 'next/navigation'
 
 import Breadcrumb from '@/components/common/Breadcrumb'
 import ExcelButton from '@/components/common/Button/ExcelButton'
+import LinkButton from '@/components/common/Button/LinkButton'
 import { RoundButton } from '@/components/common/Button/RoundButton'
 import ControlLayout from '@/components/common/ControlLayout'
 import ErrorMessage from '@/components/common/ErrorMessage'
@@ -30,13 +31,15 @@ import { downloadExcel } from './utils/excel'
 const DetailPage = () => {
     const { id } = useParams()
     const router = useRouter()
-    const { dateRange, handleDateRangeChange, getFormattedDates } = useSearchDate()
+    const { dateRange, handleDateRangeChange, getFormattedDates, isDateRangeValid } = useSearchDate()
     const dates = getFormattedDates()
     const { detailData, isLoading, error } = useDetailData({
         url: `${API_ENDPOINTS.LOG}/${id}`,
         startDate: dates?.startDate,
         endDate: dates?.endDate,
+        enabled: isDateRangeValid,
     })
+
     const formattedVehicleNumber = detailData?.vehicleType.vehicleNumber
         ? addSpaceVehicleNumber(detailData.vehicleType.vehicleNumber)
         : ''
@@ -89,7 +92,9 @@ const DetailPage = () => {
 
     return (
         <div className={styles.container}>
-            <Breadcrumb type={'운행일지'} />
+            <div className={styles.breadcrumbWrapper}>
+                <Breadcrumb type={'운행일지'} />
+            </div>
 
             <ControlLayout
                 control={
@@ -100,6 +105,7 @@ const DetailPage = () => {
                                 <CalendarIcon size={16} stroke={1} />
                             </div>
                         }
+                        maxDate={new Date()}
                         leftSectionPointerEvents='none'
                         type='range'
                         size='lg'
@@ -107,6 +113,8 @@ const DetailPage = () => {
                         placeholder='과세기간 범위 선택'
                         value={dateRange}
                         onChange={handleDateRangeChange}
+                        valueFormat='YYYY-MM-DD'
+                        clearable={true}
                         styles={{
                             input: {
                                 width: '300px',
@@ -117,17 +125,26 @@ const DetailPage = () => {
                         }}
                     />
                 }
-                primaryButton={<ExcelButton onClick={handleExcelButtonClick} />}
+                primaryButton={
+                    <div className={styles.excelButtonWrapper}>
+                        <ExcelButton onClick={handleExcelButtonClick} />
+                    </div>
+                }
                 secondaryButton={
-                    <RoundButton color='primary' size='small' onClick={handleDeleteButtonClick}>
-                        <div className={styles.button}>
-                            <Image src='/icons/white-trash-icon.svg' alt='add' width={18} height={18} />
-                            삭제
+                    true ? (
+                        <div className={styles.deleteButtonWrapper}>
+                            <RoundButton color='primary' size='small' onClick={handleDeleteButtonClick}>
+                                <div className={styles.deleteButton}>
+                                    <Image src='/icons/white-trash-icon.svg' alt='add' width={18} height={18} />
+                                    차량삭제
+                                </div>
+                            </RoundButton>
                         </div>
-                    </RoundButton>
+                    ) : (
+                        <></>
+                    )
                 }
             />
-
             <Modal
                 isOpen={isConfirmModalOpen}
                 message={confirmModalMessage as ModalMessageType}
@@ -135,14 +152,12 @@ const DetailPage = () => {
                 onClose={closeConfirmModal}
                 onConfirm={confirmDeleteVehicle}
             />
-
             <Modal
                 isOpen={isAlertModalOpen}
                 message={alertModalMessage as ModalMessageType}
                 variant={{ variant: 'alert', confirmButton: '확인' }}
                 onClose={closeAlertModal}
             />
-
             <div className={styles.tableWrapper}>
                 <table>
                     <tbody>
@@ -278,10 +293,9 @@ const DetailPage = () => {
                 </table>
             </div>
 
-            {/* TODO: LinkButton 다시 적용
             <LinkButton href={`/log/${id}/daily`} className={styles.linkButton}>
                 일별 및 시간별 조회
-            </LinkButton> */}
+            </LinkButton>
         </div>
     )
 }

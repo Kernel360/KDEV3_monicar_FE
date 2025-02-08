@@ -34,7 +34,7 @@ const pinkStyle = {
 }
 
 const greenStyle = {
-    color: vars.colors.green[400],
+    color: vars.colors.green[500],
     backgroundColor: vars.colors.green[200],
 }
 

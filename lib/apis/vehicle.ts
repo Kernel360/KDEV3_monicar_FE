@@ -22,7 +22,7 @@ export const vehicleService = {
         return { isValid: true, value: normalizeResult }
     },
     // 개별차량 상세정보 조회
-    getVehicleDetailInfo: async (vehicleId: string) => {
+    getVehicleDetail: async (vehicleId: string) => {
         const response = await httpClient.get(`api/v1/vehicle/${vehicleId}`)
 
         return response.data.result

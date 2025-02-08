@@ -4,7 +4,6 @@ import { breakPoints } from './theme.css'
 
 export const mediaQuery = {
     mobile: `screen and (max-width: ${breakPoints.mobile}px)`,
-    tablet: `screen and (max-width: ${breakPoints.tablet}px)`,
     desktop: `screen and (max-width: ${breakPoints.desktop}px)`,
 } as const
 
