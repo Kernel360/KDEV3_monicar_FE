@@ -10,7 +10,11 @@ export const container = style({
     flexDirection: 'column',
     backgroundColor: vars.colors.dashboard,
     padding: '30px',
-
+    selectors: {
+        '.dark &': {
+            backgroundColor: vars.colors.dark,
+        },
+    },
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             marginBottom: '70px',

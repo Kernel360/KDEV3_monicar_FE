@@ -6,6 +6,13 @@ import { vars } from '@/styles/theme.css'
 globalStyle('body', {
     fontFamily: 'airbnbCereal, nanumSquareNeo, sans-serif !important',
     fontWeight: FONT_WEIGHT.regular,
+    backgroundColor: vars.colors.white,
+    color: vars.colors.black,
+})
+
+globalStyle('body.dark', {
+    backgroundColor: vars.colors.dark,
+    color: vars.colors.white,
 })
 
 globalStyle('a', {

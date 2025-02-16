@@ -12,14 +12,33 @@ import * as styles from './styles.css'
 
 const NavBar = () => {
     const { logout } = useAuth()
-
     const [useEmail, setUserEmail] = useState<string>('')
+    const [isDarkMode, setIsDarkMode] = useState(false)
 
     useEffect(() => {
         const useEmail = localStorage.getItem('email') || 'b6f2@monicar.com'
-
         setUserEmail(useEmail)
     }, [])
+
+    useEffect(() => {
+        if (isDarkMode) {
+            document.body.classList.add('dark')
+        } else {
+            document.body.classList.remove('dark')
+        }
+    }, [isDarkMode])
+
+    useEffect(() => {
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true'
+        setIsDarkMode(savedDarkMode)
+    }, [])
+
+    const handleDarkModeClick = () => {
+        setIsDarkMode((previous) => {
+            localStorage.setItem('darkMode', (!previous).toString())
+            return !previous
+        })
+    }
 
     return (
         <aside className={styles.navbar}>
@@ -54,9 +73,9 @@ const NavBar = () => {
                 <div className={styles.themeControl}>
                     <div className={styles.themeInfo}>
                         <Image src='/icons/sun-icon.svg' alt='아이콘' width={20} height={20} />
-                        <span>라이트모드</span>
+                        <span>{isDarkMode ? '다크모드' : '라이트모드'}</span>
                     </div>
-                    <Switch />
+                    <Switch checked={isDarkMode} onChange={handleDarkModeClick} />
                 </div>
             </footer>
         </aside>

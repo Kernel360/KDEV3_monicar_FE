@@ -13,6 +13,14 @@ export const navItem = style({
     ':hover': {
         backgroundColor: vars.colors.gray[50],
     },
+    selectors: {
+        '.dark &': {
+            color: vars.colors.white,
+        },
+        '.dark &:hover': {
+            backgroundColor: vars.colors.gray[700],
+        },
+    },
     '@media': {
         [mediaQuery.mobile]: {
             flexDirection: 'column',
@@ -28,4 +36,11 @@ export const currentItem = style({
     color: vars.colors.primary,
     fontWeight: vars.fontWeights.bold,
     backgroundColor: vars.colors.gray[50],
+    selectors: {
+        '.dark &': {
+            color: vars.colors.white,
+            backgroundColor: vars.colors.gray[700],
+            fontWeight: vars.fontWeights.bold,
+        },
+    },
 })

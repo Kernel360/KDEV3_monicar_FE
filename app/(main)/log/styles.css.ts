@@ -6,7 +6,6 @@ export const container = style({
     height: '100vh',
     padding: '40px 44px',
     overflowY: 'auto',
-
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             padding: '50px 20px',
@@ -16,7 +15,6 @@ export const container = style({
 
 export const breadcrumbsWrapper = style({
     minWidth: '150px',
-
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             display: 'none',
@@ -32,7 +30,6 @@ export const header = style({
 
 export const searchInputWrapper = style({
     width: '300px',
-
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             width: '100%',
@@ -67,7 +64,6 @@ export const linkButton = style({
     ':hover': {
         opacity: vars.opacity[80],
     },
-
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             display: 'none',
@@ -87,7 +83,6 @@ export const pagination = style({
     alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
-
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             marginBottom: '60px',

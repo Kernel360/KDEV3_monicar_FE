@@ -6,6 +6,11 @@ export const title = style({
     fontWeight: vars.fontWeights.bold,
     color: vars.colors.gray[800],
     margin: '10px',
+    selectors: {
+        '.dark &': {
+            color: vars.colors.gray[200],
+        },
+    },
 })
 
 export const messageContainer = style({
@@ -29,6 +34,11 @@ export const messageWrapper = style({
     justifyContent: 'center',
     fontWeight: vars.fontWeights.extraBold,
     color: vars.colors.gray[600],
+    selectors: {
+        '.dark &': {
+            color: vars.colors.gray[400],
+        },
+    },
 })
 
 export const message = style({
@@ -42,6 +52,11 @@ export const activeMessageWrapper = style({
     fontSize: vars.fontSizes.mediumPlus,
     transition: 'transform 0.7s ease',
     transform: 'scale(1.1)',
+    selectors: {
+        '.dark &': {
+            color: vars.colors.primary,
+        },
+    },
 })
 
 export const deactiveMessageWrapper = style({

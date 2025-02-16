@@ -101,7 +101,7 @@ export const zIndex = {
     below: '-1',
 }
 
-const opacity = {
+export const opacity = {
     80: '0.8',
     50: '0.5',
 }

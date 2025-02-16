@@ -8,6 +8,12 @@ export const container = style({
     backgroundColor: vars.colors.white,
     color: vars.colors.black,
     textAlign: 'center',
+    selectors: {
+        '.dark &': {
+            backgroundColor: vars.colors.dark,
+            color: vars.colors.gray[200],
+        },
+    },
 })
 
 export const textWrapper = style({
@@ -18,6 +24,11 @@ export const textWrapper = style({
 export const dateWrapper = style({
     color: vars.colors.gray[500],
     fontSize: vars.fontSizes.small,
+    selectors: {
+        '.dark &': {
+            color: vars.colors.white,
+        },
+    },
 })
 
 export const header = style({

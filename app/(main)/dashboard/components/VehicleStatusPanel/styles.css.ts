@@ -11,7 +11,12 @@ export const container = style({
     gap: '12px',
     color: vars.colors.gray[800],
     fontWeight: vars.fontWeights.bold,
-
+    selectors: {
+        '.dark &': {
+            backgroundColor: vars.colors.dark,
+            color: vars.colors.gray[200],
+        },
+    },
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             fontSize: vars.fontSizes.small,
@@ -24,7 +29,6 @@ export const container = style({
 
 export const titleWrapper = style({
     display: 'none',
-
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             display: 'flex',

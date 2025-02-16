@@ -11,7 +11,11 @@ export const container = style({
     display: 'flex',
     alignItems: 'center',
     gap: '16px',
-
+    selectors: {
+        '.dark &': {
+            backgroundColor: vars.colors.gray[700],
+        },
+    },
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {},
     },
@@ -27,10 +31,20 @@ export const vehicleNumber = style({
     fontSize: vars.fontSizes.mediumPlus,
     color: vars.colors.gray[800],
     fontWeight: vars.fontWeights.bold,
+    selectors: {
+        '.dark &': {
+            color: vars.colors.white,
+        },
+    },
 })
 
 export const description = style({
     color: vars.colors.gray[600],
+    selectors: {
+        '.dark &': {
+            color: vars.colors.gray[500],
+        },
+    },
 })
 
 export const button = style({

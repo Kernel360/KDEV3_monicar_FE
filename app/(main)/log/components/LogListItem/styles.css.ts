@@ -17,7 +17,14 @@ export const container = style({
         backgroundColor: vars.colors.gray[50],
         transform: 'scale(1.02)',
     },
-
+    selectors: {
+        '.dark &': {
+            color: vars.colors.white,
+        },
+        '.dark &:hover': {
+            backgroundColor: vars.colors.gray[700],
+        },
+    },
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             fontSize: vars.fontSizes.medium,

@@ -18,7 +18,13 @@ const NavItem = ({ label, path, iconSrc }: NavItemProps) => {
 
     return (
         <li>
-            <Link href={`${path}`} className={`${styles.navItem} ${isCurrentPage && styles.currentItem}`}>
+            <Link
+                href={`${path}`}
+                className={`
+          ${styles.navItem}
+          ${isCurrentPage ? styles.currentItem : ''}
+        `}
+            >
                 <Image
                     src={iconSrc}
                     alt={`${label} 아이콘`}

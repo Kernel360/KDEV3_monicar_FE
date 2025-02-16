@@ -18,6 +18,12 @@ export const colorVariants = styleVariants({
     secondary: {
         backgroundColor: vars.colors.transparent[500],
         color: vars.colors.gray[700],
+        selectors: {
+            '.dark &': {
+                color: vars.colors.white,
+                backgroundColor: vars.colors.gray[700],
+            },
+        },
     },
 })
 

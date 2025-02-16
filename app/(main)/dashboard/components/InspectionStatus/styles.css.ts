@@ -13,7 +13,11 @@ export const container = style({
     borderRadius: '12px',
     fontWeight: vars.fontWeights.bold,
     cursor: 'pointer',
-
+    selectors: {
+        '.dark &': {
+            backgroundColor: vars.colors.dark,
+        },
+    },
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             display: 'flex',

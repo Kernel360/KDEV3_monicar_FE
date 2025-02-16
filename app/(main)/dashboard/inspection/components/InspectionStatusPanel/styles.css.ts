@@ -7,7 +7,7 @@ export const container = style({
     gap: '60px',
     padding: '20px 50px',
     border: `1px solid ${vars.colors.gray[300]}`,
-
+    borderRadius: '6px',
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             padding: '24px',
@@ -19,7 +19,6 @@ export const container = style({
 export const ringProgressWrapper = style({
     display: 'flex',
     alignItems: 'center',
-
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             display: 'none',
@@ -35,7 +34,11 @@ export const inspectionStatusItem = style({
     color: vars.colors.gray[800],
     fontWeight: vars.fontWeights.bold,
     flex: 1,
-
+    selectors: {
+        '.dark &': {
+            backgroundColor: vars.colors.dark,
+        },
+    },
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             fontSize: vars.fontSizes.small,

@@ -13,7 +13,11 @@ export const navbar = style({
     backgroundColor: vars.colors.white,
     borderRight: `1px solid ${vars.colors.gray[200]}`,
     zIndex: vars.zIndex.dropdown,
-
+    selectors: {
+        '.dark &': {
+            backgroundColor: vars.colors.dark,
+        },
+    },
     '@media': {
         [mediaQuery.mobile]: {
             position: 'fixed',
@@ -87,6 +91,14 @@ export const logoutButton = style({
     color: vars.colors.black,
     ':hover': {
         backgroundColor: vars.colors.gray[50],
+    },
+    selectors: {
+        '.dark &': {
+            color: vars.colors.white,
+        },
+        '.dark &:hover': {
+            backgroundColor: vars.colors.gray[700],
+        },
     },
     '@media': {
         [mediaQuery.mobile]: {

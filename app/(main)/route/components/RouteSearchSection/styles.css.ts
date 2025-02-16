@@ -13,7 +13,6 @@ export const accordion = style({
     borderRadius: '12px',
     zIndex: vars.zIndex.dropdown,
     overflow: 'hidden',
-
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             width: 'calc(100% - 24px)',
@@ -27,7 +26,6 @@ export const container = style({
     display: 'flex',
     gap: '24px',
     flexDirection: 'column',
-
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             padding: '12px',
@@ -40,7 +38,6 @@ export const bottomSection = style({
     display: 'flex',
     gap: '24px',
     flexDirection: 'column',
-
     '@media': {
         [`screen and (max-width: ${breakPoints.mobile}px)`]: {
             gap: '18px',

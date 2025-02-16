@@ -32,6 +32,10 @@ export const item = style({
         '&:nth-child(3)': {
             zIndex: vars.zIndex.default,
         },
+        '.dark &': {
+            backgroundColor: vars.colors.dark,
+            color: vars.colors.gray[600],
+        },
     },
 })
 
@@ -39,4 +43,10 @@ export const activeItem = style({
     fontWeight: vars.fontWeights.bold,
     color: vars.colors.gray[600],
     backgroundColor: vars.colors.gray[200],
+    selectors: {
+        '.dark &': {
+            backgroundColor: vars.colors.gray[700],
+            color: vars.colors.white,
+        },
+    },
 })
