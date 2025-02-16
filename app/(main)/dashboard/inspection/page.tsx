@@ -1,81 +1,56 @@
 'use client'
+
 import { Group, Pagination, Tabs } from '@mantine/core'
 import Image from 'next/image'
-import { Suspense, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
 import Breadcrumbs from '@/components/common/Breadcrumbs'
 import InspectionSkeleton from '@/components/common/Skeleton/InspectionSkeleton'
+import PanelSkeleton from '@/components/common/Skeleton/PanelSkeleton'
+import { vehicleService } from '@/lib/apis/vehicle'
+import { AlarmResponse } from '@/types/vehicle'
 
 import InspectionCard from './components/InspectionCard'
 import InspectionStatusPanel from './components/InspectionStatusPanel'
 import * as styles from './styles.css'
 
-// TODO: 실제 데이터로 교체
-
-const mockInspections = [
-    {
-        id: 1,
-        vehicleNumber: '11가 4564',
-        status: 'REQUIRED',
-        drivingDistance: 3949,
-        managerName: '김모니',
-    },
-    {
-        id: 2,
-        vehicleNumber: '22나 5678',
-        status: 'REQUIRED',
-        drivingDistance: 2845,
-        managerName: '이점검',
-    },
-    {
-        id: 3,
-        vehicleNumber: '33다 9012',
-        status: 'REQUIRED',
-        drivingDistance: 5632,
-        managerName: '박관리',
-    },
-    {
-        id: 4,
-        vehicleNumber: '44라 3456',
-        status: 'REQUIRED',
-        drivingDistance: 4123,
-        managerName: '최담당',
-    },
-    {
-        id: 5,
-        vehicleNumber: '55마 7890',
-        status: 'REQUIRED',
-        drivingDistance: 3567,
-        managerName: '정기사',
-    },
-    {
-        id: 6,
-        vehicleNumber: '66바 1234',
-        status: 'REQUIRED',
-        drivingDistance: 4789,
-        managerName: '강점검',
-    },
-    {
-        id: 7,
-        vehicleNumber: '77사 5678',
-        status: 'COMPLETED',
-        drivingDistance: 2934,
-        managerName: '윤담당',
-    },
-    {
-        id: 8,
-        vehicleNumber: '88아 9012',
-        status: 'REQUIRED',
-        drivingDistance: 5123,
-        managerName: '한기사',
-    },
-] as const
-
 const InspectionPage = () => {
     const [activeTab, setActiveTab] = useState<string | null>('REQUIRED')
-    const [isLoading] = useState()
+    const [inspectionData, setInspectionData] = useState<AlarmResponse[]>([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [page] = useState(1)
 
-    const inspection = mockInspections.filter((item) => item.status === activeTab)
+    const getInspectionStatusData = async () => {
+        try {
+            setIsLoading(true)
+            const response = await vehicleService.getInspectionStatus()
+
+            if (response.isSuccess) {
+                setInspectionData(response.error)
+            }
+        } catch (error) {
+            console.error('get 에러지롱', error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const patchInspectionStatusData = async (alarmId: number) => {
+        try {
+            await vehicleService.patchInspectionStatus(alarmId)
+            await getInspectionStatusData()
+        } catch (error) {
+            console.error('이건 patch 에러', error)
+        }
+    }
+
+    const handleButtonClick = async (alarmId: number) => {
+        await patchInspectionStatusData(alarmId)
+    }
+
+    useEffect(() => {
+        getInspectionStatusData()
+    }, [activeTab, page])
 
     if (isLoading) {
         return (
@@ -100,7 +75,7 @@ const InspectionPage = () => {
                         />
                     </div>
 
-                    <InspectionStatusPanel />
+                    <PanelSkeleton />
 
                     <Tabs color='#ff385c' variant='pills' radius='xl' value={activeTab} onChange={setActiveTab}>
                         <Tabs.List className={styles.tabsWrapper}>
@@ -179,13 +154,14 @@ const InspectionPage = () => {
 
             <Suspense fallback={<InspectionSkeleton />}>
                 <div className={styles.cardWrapper}>
-                    {inspection.map((item) => (
+                    {inspectionData?.map((data) => (
                         <InspectionCard
-                            key={item.id}
-                            vehicleNumber={item.vehicleNumber}
-                            status={item.status}
-                            drivingDistance={item.drivingDistance}
-                            managerName={item.managerName}
+                            key={data.id}
+                            vehicleNumber={data.vehicleNumber}
+                            status={data.status}
+                            drivingDistance={data.drivingDistance}
+                            managerName={data.managerName}
+                            onClick={() => handleButtonClick(data.id)}
                         />
                     ))}
                 </div>

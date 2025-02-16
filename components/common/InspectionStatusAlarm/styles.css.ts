@@ -17,10 +17,10 @@ export const statusCard = recipe({
     },
     variants: {
         status: {
-            required: { backgroundColor: vars.colors.pink[200], borderLeftColor: vars.colors.pink[700] },
-            scheduled: { backgroundColor: vars.colors.yellow[100], borderLeftColor: vars.colors.yellow[200] },
-            inProgress: { backgroundColor: vars.colors.green[100], borderLeftColor: vars.colors.green[300] },
-            completed: { backgroundColor: vars.colors.purple[100], borderLeftColor: vars.colors.purple[200] },
+            REQUIRED: { backgroundColor: vars.colors.pink[200], borderLeftColor: vars.colors.pink[700] },
+            SCHEDULED: { backgroundColor: vars.colors.yellow[100], borderLeftColor: vars.colors.yellow[200] },
+            INPROGRESS: { backgroundColor: vars.colors.green[100], borderLeftColor: vars.colors.green[300] },
+            COMPLETED: { backgroundColor: vars.colors.purple[100], borderLeftColor: vars.colors.purple[200] },
         },
     },
 })

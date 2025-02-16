@@ -19,6 +19,11 @@ export const vehicleNumber = style({
     fontSize: vars.fontSizes.mediumPlus,
 })
 
+export const skeletonWrapper = style({
+    marginRight: 'auto',
+    padding: '4px 0px',
+})
+
 export const controlGroup = style({
     display: 'flex',
     gap: '12px',

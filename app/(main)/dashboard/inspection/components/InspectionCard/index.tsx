@@ -11,6 +11,7 @@ interface InspectionCardProps {
     drivingDistance?: number
     hasButton?: boolean
     status: StatusType
+    onClick: () => void
 }
 
 const InspectionCard = ({
@@ -19,6 +20,7 @@ const InspectionCard = ({
     managerName,
     hasButton = true,
     status,
+    onClick,
 }: InspectionCardProps) => {
     const iconStatus = (status: StatusType) => {
         switch (status) {
@@ -47,7 +49,7 @@ const InspectionCard = ({
 
             {hasButton && (
                 <div className={styles.button}>
-                    <BaseButton onClick={() => {}}>승인</BaseButton>
+                    <BaseButton onClick={onClick}>승인</BaseButton>
                 </div>
             )}
         </div>
