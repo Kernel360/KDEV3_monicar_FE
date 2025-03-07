@@ -4,7 +4,7 @@
 
 <div align="center">
 
-🚘 [monicar](https://www.monicar.store/)<br>
+🚘 [monicar](https://www.monicar.kr/)<br>
 📒 [Storybook](https://develop--677a9e60af1c67b3c5b149e8.chromatic.com)
 
 |            | **아이디** | **비밀번호** |
@@ -110,7 +110,7 @@
   ⚡ Tech Stack: Spring Boot, Spring Data JPA, Spring Security, QueryDSL, MyBatis, JWT, SSE, AWS EC2, AWS RDS, AWS ALB
 </p>
 
-## 팀원소개
+## 👤 팀원소개
 
 <div align="center">
 
@@ -120,7 +120,7 @@
 
 </div>
 
-## BE Trouble Shooting
+## 🔫 BE Trouble Shooting
 
 - [부하테스트 - 메시지 큐를 도입할 수 밖에 없었던 이유](https://www.canva.com/design/DAGfcRy6xGE/q6HvKo_qZ0ftXHH79zK6rg/edit?utm_content=DAGfcRy6xGE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - [메시지 큐 중에 Kafka를 도입한 이유 - 구체적으로 업로드 예정](https://github.com/Kernel360/KDEV3_monicar_BE/blob/develop/img/Kafa도입이유.md)

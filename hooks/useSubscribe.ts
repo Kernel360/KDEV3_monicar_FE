@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { API_URL } from '@/constants/api'
 import { AlarmResponse } from '@/types/vehicle'
+
 export const useSubscribe = () => {
     const [alarm, setAlarm] = useState<AlarmResponse[]>([])
     const [error, setError] = useState<Error | null>(null)
@@ -29,12 +30,11 @@ export const useSubscribe = () => {
         }
 
         eventSource.onerror = () => {
-            setError(new Error(''))
+            setError(new Error('SSE 연결 오류'))
             eventSource.close()
         }
 
         return () => {
-            // console.log('SSE 연결 종료')
             eventSource.close()
         }
     }, [])
